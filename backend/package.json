@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uzormercy/vendmachine.git"
+  },
+  "keywords": [
+    "vendmachine|Javascript"
+  ],
+  "author": "mercy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uzormercy/vendmachine/issues"
+  },
+  "homepage": "https://github.com/uzormercy/vendmachine#readme"
+}
