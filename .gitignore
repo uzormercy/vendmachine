@@ -1,0 +1,13 @@
+backend/node_modules
+backend/build
+backend/storage
+backend/*.logo
+backend/.DS_Store
+backend/.env
+
+frontend/node_modules
+frontend/build
+frontend/storage
+frontend/*.logo
+frontend/.DS_Store
+frontend/.env
