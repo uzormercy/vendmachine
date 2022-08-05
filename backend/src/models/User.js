@@ -13,8 +13,8 @@ const UserSchema = new Schema(
     },
     username: { type: String, required: 'Username cannot be null' },
     password: { type: String, required: 'Password cannot be null' },
-    role: { type: String },
-    deposit: { type: String }
+    role: { type: String, enum: ['buyer', 'seller'] },
+    deposit: { type: String, default: 0 }
   },
   {
     toJSON: {

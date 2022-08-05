@@ -3,15 +3,23 @@
 // Server error
 // Api error
 // Network error
-import winston from 'winston';
 import statusCode from './statusCode';
 
 const { VALIDATION_ERROR, BAD_REQUEST } = statusCode;
 
-const error = (status, title, message, data) => ({
+const error = (status, message, data) => ({
   status,
-  title,
   type: false,
   message,
   data
 });
+
+export const handleValidationError = (err) => {
+  const errors = Object.values(err.errors).map((e) => e);
+  return error(VALIDATION_ERROR, 'ValidationError', errors);
+};
+
+export const handleServerError = (err) => {
+  const errors = Object.values(err);
+  return error(BAD_REQUEST, 'Invalid input', errors);
+};
