@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import bcrypt from 'bcryptjs';
 import validator from '../validators/validator';
 import User from '../models/User';
-import { store } from '../utils/execute';
+import { isDuplicated, store } from '../utils/execute';
 import { registerValidator } from '../validators/authValidators';
 import { generateToken } from '../utils/token';
 
@@ -19,6 +19,11 @@ export const createUserService = async (data) => {
     return validation;
   }
   const { email, fullname, password, username } = validation;
+
+  const emailExist = isDuplicated(User)(email);
+    if(!R.isNil(emailExist.type)){
+      return emailExist;
+    }
 
   //   isEmailTaken
   //  isUsernameTaken

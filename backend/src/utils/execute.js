@@ -10,14 +10,19 @@ export const update = (model) => (data) =>
     .then((res) => res)
     .catch((error) => console.log(error));
 
-export const isEmailTaken = (model) => (email) =>
-  model
-    .count({ email })
-    .then((res) => res)
-    .catch((error) => console.log(error));
 
-export const isUsernameTaken = (model) => (username) =>
-  model
-    .count({ username })
-    .then((res) => res)
-    .catch((error) => console.log(error));
+
+export const isDuplicated = (model) => (field) => model.count({field}).then((count) => {
+  if(count && count > 0) {
+    return {
+      status: 422,
+      type: true,
+      message: `${'Duplicate entery for ' + field}`
+    }
+  }
+  return false;
+})
+
+
+export const findOne = (model) => (field) => model.findOne({field}).then((res) => res).catch((error) => console.log(error));
+
