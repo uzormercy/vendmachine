@@ -1,6 +1,6 @@
-export const store = (model) => (data) =>
+export const store = (model) =>
   model
-    .save(data)
+    .save()
     .then((res) => res)
     .catch((error) => console.log(error));
 
@@ -10,14 +10,14 @@ export const update = (model) => (data) =>
     .then((res) => res)
     .catch((error) => console.log(error));
 
-export const isEmailTaken = (model) => (email) =>
+export const isDuplicate = (model) => (field) =>
   model
-    .count({ email })
-    .then((res) => res)
+    .count(field)
+    .then((count) => ({ status: !!(count && count > 0), count }))
     .catch((error) => console.log(error));
 
-export const isUsernameTaken = (model) => (username) =>
+export const findOne = (model) => (field) =>
   model
-    .count({ username })
+    .findOne(field)
     .then((res) => res)
     .catch((error) => console.log(error));

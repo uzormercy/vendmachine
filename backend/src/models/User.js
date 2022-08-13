@@ -27,8 +27,8 @@ const UserSchema = new Schema(
   }
 );
 
-const User = mongoose.model('user', UserSchema);
-
 UserSchema.statics.of = (data) => new User(data);
+
+const User = mongoose.model('user', UserSchema);
 
 export default User;
