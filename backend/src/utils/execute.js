@@ -4,9 +4,9 @@ export const store = (model) =>
     .then((res) => res)
     .catch((error) => console.log(error));
 
-export const update = (model) => (data) =>
+export const findAndUpdate = (model) => (id) => (data) =>
   model
-    .update(data)
+    .findByIdAndUpdate(id, data)
     .then((res) => res)
     .catch((error) => console.log(error));
 
@@ -19,5 +19,17 @@ export const isDuplicate = (model) => (field) =>
 export const findOne = (model) => (field) =>
   model
     .findOne(field)
+    .then((res) => res)
+    .catch((error) => console.log(error));
+
+export const find = (model) =>
+  model
+    .find()
+    .then((res) => res)
+    .catch((error) => console.log(error));
+
+export const findAndDelete = (model) => (data) =>
+  model
+    .deleteOne(data)
     .then((res) => res)
     .catch((error) => console.log(error));
