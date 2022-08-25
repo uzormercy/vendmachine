@@ -11,57 +11,59 @@ import {
 import { productValidator } from '../validators/productValidators';
 import validator from '../validators/validator';
 
-export const getProducts = () => find(Product);
+export const getAllProductService = () => find(Product);
 
-export const createProduct = async (data) => {
-  const validate = validator(productValidator)(data);
+export const createProductService = async (data) => {
+  const validate = await validator(productValidator)(data);
   if (!R.isNil(validate.type)) {
     return validate;
   }
-  const { name, price, seller, quantity } = validate;
+  const { name, price, sellerId, quantity } = validate;
 
   const product = Product.of({
     _id: uuid(),
-    sellerId: seller,
+    sellerId,
     price,
     name,
     quantity
   });
   const save = await store(product);
-  return { data: save };
+  return save;
 };
 
-export const getProduct = (_id) => findOne(Product)({ _id });
+export const getProductService = (_id) => findOne(Product)({ _id });
 
-export const updateProduct = async (data) => {
-  const validate = validator(productValidator)(data);
+export const updateProductService = async (data) => {
+  const validate = await validator(productValidator)(data);
   if (!R.isNil(validate.type)) {
     return validate;
   }
-  const { name, price, seller, quantity } = validate;
-
-  const product = await findOne(Product)({ _id: data.id, sellerId: seller });
+  const { name, price, sellerId, quantity } = validate;
+  const product = await findOne(Product)({ _id: data.id, sellerId });
   if (!product) {
     return {
       status: 404,
       message: 'Product not found or has been moved'
     };
   }
-  return findAndUpdate(Product)(data.id)({
+  await findAndUpdate(Product)(data.id)({
     name,
     price,
     quantity
   });
+
+  return await findOne(Product)({ _id: data.id, sellerId });
 };
 
-export const deletProduct = async (data) => {
-  const { id, seller } = data;
-  const product = await findOne(Product)({ _id: id, sellerId: seller });
+export const deleteProductService = async (data) => {
+  const { id, sellerId } = data;
+  const product = await findOne(Product)({ _id: id, sellerId });
   if (!product) {
     return {
       status: 404,
       message: 'Product not found or has been moved'
     };
   }
-  return findAndDelete(Product)(id);
+  const remove = await findAndDelete(Product)(id);
+  return remove;
 };

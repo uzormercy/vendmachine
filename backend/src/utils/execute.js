@@ -30,6 +30,6 @@ export const find = (model) =>
 
 export const findAndDelete = (model) => (data) =>
   model
-    .deleteOne(data)
+    .deleteOne({ data })
     .then((res) => res)
     .catch((error) => console.log(error));

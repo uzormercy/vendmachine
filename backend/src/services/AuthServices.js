@@ -77,3 +77,5 @@ export const loginUserService = async (data) => {
     token: await token(user.username, user.id, user.role)
   };
 };
+
+export const authUser = (req) => req.context.user;
